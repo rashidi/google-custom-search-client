@@ -5,14 +5,14 @@ Google offers an API for their [Custom Search][1]. However I find the [Java libr
 
 ## Building The Library
 
-Before buildint the library, make sure that your machine has maven2 environment set up. Build the library with maven command:
+Before building the library, make sure that your machine has maven2 environment set up. Build the library with maven command:
 
 	mvn clean install
 
 
 ## Copyrights
 
-The source code of this library is licensed under [WTFPL][3].
+The source code of this library is licensed under [WTFPL][3]. Feel free to do whatever you want with it.
 
 [1]: http://www.google.com/cse/
 [2]: https://developers.google.com/custom-search/v1/libraries
