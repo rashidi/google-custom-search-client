@@ -14,7 +14,7 @@ There will two jar created. One includes dependencies while the other did not.
 
 ## Usage
 
-You can find sample of usage in [GoogleCustomSearchTest.java][4]
+You can find sample of usage in GoogleCustomSearchTest.java
 
 
 ## Copyrights
@@ -24,4 +24,3 @@ This source code is licensed under [WTFPL][3]. Feel free to do whatever you want
 [1]: http://www.google.com/cse/
 [2]: https://developers.google.com/custom-search/v1/libraries
 [3]: http://sam.zoy.org/wtfpl/
-[4]: https://bitbucket.org/rashidi/google-custom-search-client/src/690263008b11d7f3cb073fd0f307cba01c87345f/src/test/java/my/zin/rashidi/google/GoogleCustomSearchTest.java?at=master
