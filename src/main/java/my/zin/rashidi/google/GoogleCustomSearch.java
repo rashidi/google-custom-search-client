@@ -6,11 +6,17 @@ package my.zin.rashidi.google;
 import static com.google.common.base.CharMatcher.WHITESPACE;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static java.lang.String.format;
+import static org.apache.commons.lang.StringUtils.isBlank;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Iterator;
+import java.util.List;
 
+import my.zin.rashidi.google.customsearch.entity.Item;
+import my.zin.rashidi.google.customsearch.entity.Meta;
+import my.zin.rashidi.google.customsearch.entity.Queries;
 import my.zin.rashidi.google.customsearch.entity.Result;
 
 import org.apache.http.HttpResponse;
@@ -23,23 +29,37 @@ import com.google.gson.Gson;
 
 /**
  * @author Rashidi Zin
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0
  */
 public class GoogleCustomSearch {
 
 	private String cx;
 	private String apiKey;
+	private int num;
+	private int start = 1;
 	
 	public GoogleCustomSearch(String cx, String apiKey) {
+		this(cx, apiKey, 0);
+	}
+	public GoogleCustomSearch(String cx, String apiKey, int num) {
 		if (isNullOrEmpty(cx) || isNullOrEmpty(apiKey)) { throw new IllegalArgumentException("CX and API Key are required"); }
 		
-		setCx(cx);
 		setApiKey(apiKey);
+		setCx(cx);
+		setNum(num);
 	}
 
+	private String getUri(String query) {
+		return format("https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&q=%s&start=%d&alt=json",  
+						getApiKey(), 
+						getCx(), 
+					WHITESPACE.trimAndCollapseFrom(query, '+'),
+					getStart());
+	}
+	
 	private HttpResponse getResponse(String query) {
-		String uri = format( "https://www.googleapis.com/customsearch/v1?key=%s&cx=%s&q=%s&alt=json", getApiKey(), getCx(), WHITESPACE.trimAndCollapseFrom(query, '+'));
+		String uri = getUri(query);
 		
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(uri);
@@ -74,11 +94,38 @@ public class GoogleCustomSearch {
 		return null;
 	}
 	
-	public Result execute(String query) {		
+	public Result execute(String query) {
+		return execute(query, null);
+	}
+	
+	public Result execute(String query, Result result) {
 		HttpResponse response = getResponse(query);
 		String json = getJson(response);
 		
-		return new Gson().fromJson(json, Result.class);
+		Queries queries = new Meta(json).getQueries();
+		setStart(queries.getNextPage().get(0).getStartIndex());
+		
+		if (result == null) { result = new Gson().fromJson(json, Result.class); }
+		
+		if (result.getItems().size() < getNum()) {
+			List<Item> items = execute(query, result).getItems();
+			result.getItems().addAll(items);
+		}
+
+		return filterItems(result);
+	}
+	
+	/*
+	 * Some items are not a web page. They could be images or something else. Here is where we remove them.
+	 */
+	private Result filterItems(Result result) {
+		Iterator<Item> items = result.getItems().iterator();
+		
+		while (items.hasNext()) {
+			if (isBlank(items.next().getFormattedUrl())) { items.remove(); }
+		}
+		
+		return result;
 	}
 	
 	public String getCx() {
@@ -96,5 +143,20 @@ public class GoogleCustomSearch {
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
 	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
 	
+	public int getStart() {
+		return start;
+	}
+	
+	public void setStart(int start) {
+		this.start = start;
+	}
 }
