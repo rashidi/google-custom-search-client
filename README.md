@@ -9,10 +9,17 @@ Before building the library, make sure that your machine has maven2 environment 
 
 	mvn clean install
 
+There will two jar created. One includes dependencies while the other did not.
+
+
+## Usage
+
+You can find sample of usage in GoogleCustomSearchTest.java
+
 
 ## Copyrights
 
-The source code of this library is licensed under [WTFPL][3]. Feel free to do whatever you want with it.
+This source code is licensed under [WTFPL][3]. Feel free to do whatever you want with it.
 
 [1]: http://www.google.com/cse/
 [2]: https://developers.google.com/custom-search/v1/libraries

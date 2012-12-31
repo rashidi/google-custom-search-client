@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class Result {
 
-	SearchInformation searchInformation;
-	List<Item> items;
+	private SearchInformation searchInformation;
+	private List<Item> items;
 	
 	public Result() {
 		
@@ -34,6 +34,5 @@ public class Result {
 	public void setSearchInformation(SearchInformation searchInformation) {
 		this.searchInformation = searchInformation;
 	}
-	
 	
 }

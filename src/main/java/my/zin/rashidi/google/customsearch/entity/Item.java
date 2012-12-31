@@ -5,7 +5,7 @@ package my.zin.rashidi.google.customsearch.entity;
 
 /**
  * @author Rashidi Zin
- * @version 1.0.0
+ * @version 1.1.0
  * @since 1.0.0
  */
 public class Item {
@@ -13,6 +13,7 @@ public class Item {
 	private String title;
 	private String link;
 	private String snippet;
+	private String formattedUrl;
 	
 	public Item() {
 		
@@ -40,6 +41,14 @@ public class Item {
 
 	public void setSnippet(String snippet) {
 		this.snippet = snippet;
+	}
+
+	public String getFormattedUrl() {
+		return formattedUrl;
+	}
+
+	public void setFormattedUrl(String formattedUrl) {
+		this.formattedUrl = formattedUrl;
 	}	
 	
 }
