@@ -95,24 +95,20 @@ public class GoogleCustomSearch {
 	}
 	
 	public Result execute(String query) {
-		return execute(query, null);
-	}
-	
-	public Result execute(String query, Result result) {
-		HttpResponse response = getResponse(query);
-		String json = getJson(response);
-		
-		Queries queries = new Meta(json).getQueries();
-		setStart(queries.getNextPage().get(0).getStartIndex());
-		
-		if (result == null) { result = new Gson().fromJson(json, Result.class); }
+		Result result = getSearchResult(query);
 		
 		if (result.getItems().size() < getNum()) {
-			List<Item> items = execute(query, result).getItems();
-			result.getItems().addAll(items);
+			List<Item> items = getSearchResult(query).getItems();
+			
+			for (Item item : items) {
+				
+				if (result.getItems().size() < getNum()) { result.getItems().add(item); }
+			}
+		} else {			
+			result.getItems().subList(getNum(), result.getItems().size()).clear();
 		}
 
-		return filterItems(result);
+		return result;
 	}
 	
 	/*
@@ -126,6 +122,16 @@ public class GoogleCustomSearch {
 		}
 		
 		return result;
+	}
+	
+	private Result getSearchResult(String query) {
+		HttpResponse response = getResponse(query);
+		String json = getJson(response);
+
+		Queries queries = new Meta(json).getQueries();
+		setStart(queries.getNextPage().get(0).getStartIndex());
+		
+		return filterItems(new Gson().fromJson(json, Result.class));
 	}
 	
 	public String getCx() {

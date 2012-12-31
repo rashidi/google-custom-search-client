@@ -56,8 +56,17 @@ public class GoogleCustomSearchTest {
 	
 	@Test
 	public void testSetTotalResult() {
-		GoogleCustomSearch search = new GoogleCustomSearch(cx, apiKey, 20);
+		int total = 15;
+		GoogleCustomSearch search = new GoogleCustomSearch(cx, apiKey, total);
 		Result result = search.execute("jelly bean 4.2.1");
-		Assert.assertEquals(10, result.getItems().size());
+		Assert.assertEquals(total, result.getItems().size());
+	}
+	
+	@Test
+	public void testSetTotalResultLesserThanDefault() {
+		int total = 7;
+		GoogleCustomSearch search = new GoogleCustomSearch(cx, apiKey, total);
+		Result result = search.execute("jelly bean 4.2.1");
+		Assert.assertEquals(total, result.getItems().size());
 	}
 }
