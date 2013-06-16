@@ -25,3 +25,7 @@ local.properties
 
 # PDT-specific
 .buildpath
+
+#IntelliJ IDEA
+*.idea
+*.iml
