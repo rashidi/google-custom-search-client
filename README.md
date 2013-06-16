@@ -2,6 +2,7 @@
 
 Google offers an API for their [Custom Search][1]. However I find the [Java library they provided][2] is difficult to use and there is no sample of usage provided. After several attempts I gave up and decided to create my own.
 
+[![Build Status](https://travis-ci.org/rashidi/google-custom-search-client.png?branch=master)](https://travis-ci.org/rashidi/google-custom-search-client)
 
 ## Building The Library
 
