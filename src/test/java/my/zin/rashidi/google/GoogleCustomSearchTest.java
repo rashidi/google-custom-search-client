@@ -23,8 +23,8 @@ public class GoogleCustomSearchTest {
 	
 	GoogleCustomSearch $;
 	
-	private final String cx = "354574352034.apps.googleusercontent.com";
-	private final String apiKey = "AIzaSyBtlU8cnCuyx85hoGCISCxU-b7XSWGnSpI";
+	private final String cx = "014723624719242706501:ky6zn2teax4";
+	private final String apiKey = "AIzaSyBFnKBQPESdi2sP1twKp59-3mBscTVw99k";
 	
 	@Before
 	public void setUp() throws Exception {
@@ -43,9 +43,9 @@ public class GoogleCustomSearchTest {
 	
 	@Test
 	public void testResultAvailable() {
-		Result result = $.execute("rashidi zin");
+		Result result = $.execute("Inferno");
 		assertNotNull(result);
-		assertTrue(Integer.valueOf(result.getSearchInformation().getTotalResults()) > 0);
+		assertTrue(Long.valueOf(result.getSearchInformation().getTotalResults()) > 0);
 	}
 	
 	@Test
@@ -58,7 +58,7 @@ public class GoogleCustomSearchTest {
 	public void testSetTotalResult() {
 		int total = 15;
 		GoogleCustomSearch search = new GoogleCustomSearch(cx, apiKey, total);
-		Result result = search.execute("jelly bean 4.2.1");
+		Result result = search.execute("Android");
 		Assert.assertEquals(total, result.getItems().size());
 	}
 	
@@ -66,7 +66,7 @@ public class GoogleCustomSearchTest {
 	public void testSetTotalResultLesserThanDefault() {
 		int total = 7;
 		GoogleCustomSearch search = new GoogleCustomSearch(cx, apiKey, total);
-		Result result = search.execute("jelly bean 4.2.1");
+		Result result = search.execute("Android");
 		Assert.assertEquals(total, result.getItems().size());
 	}
 }
