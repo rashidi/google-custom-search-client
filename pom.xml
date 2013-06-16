@@ -10,10 +10,10 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <apache.httpclient.version>4.2.1</apache.httpclient.version>
-    <google.gson.version>2.2.2</google.gson.version>
+    <apache.httpclient.version>4.2.5</apache.httpclient.version>
+    <google.gson.version>2.2.4</google.gson.version>
     <google.guava.version>r09</google.guava.version>
-    <junit.version>4.10</junit.version>
+    <junit.version>4.11</junit.version>
     <commons-lang.version>2.6</commons-lang.version>
   </properties>
 
