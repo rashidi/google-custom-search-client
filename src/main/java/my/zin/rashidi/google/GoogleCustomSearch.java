@@ -61,7 +61,6 @@ public class GoogleCustomSearch {
 	private HttpResponse getResponse(String query) {
 		String uri = getUri(query);
 
-        System.out.println(uri);
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(uri);
 		request.addHeader("accept", "application/json");
