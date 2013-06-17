@@ -3,6 +3,7 @@
  */
 package my.zin.rashidi.google;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import my.zin.rashidi.google.customsearch.entity.Result;
@@ -15,7 +16,7 @@ import org.junit.runners.JUnit4;
 
 /**
  * @author Rashidi Zin
- * @version 1.1.0
+ * @version 1.2.0
  * @since 1.0.0
  */
 @RunWith(JUnit4.class)
@@ -47,6 +48,13 @@ public class GoogleCustomSearchTest {
 		assertNotNull(result);
 		assertTrue(Long.valueOf(result.getSearchInformation().getTotalResults()) > 0);
 	}
+
+    @Test
+    public void testMultipleKeywords() {
+        Result result = $.execute("bob marley");
+        assertNotNull(result);
+        assertTrue(Long.valueOf(result.getSearchInformation().getTotalResults()) > 0);
+    }
 	
 	@Test
 	public void testSearchTime() {
@@ -59,7 +67,7 @@ public class GoogleCustomSearchTest {
 		int total = 15;
 		GoogleCustomSearch search = new GoogleCustomSearch(cx, apiKey, total);
 		Result result = search.execute("Android");
-		Assert.assertEquals(total, result.getItems().size());
+		assertEquals(total, result.getItems().size());
 	}
 	
 	@Test
@@ -67,6 +75,6 @@ public class GoogleCustomSearchTest {
 		int total = 7;
 		GoogleCustomSearch search = new GoogleCustomSearch(cx, apiKey, total);
 		Result result = search.execute("Android");
-		Assert.assertEquals(total, result.getItems().size());
+		assertEquals(total, result.getItems().size());
 	}
 }

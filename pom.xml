@@ -4,7 +4,7 @@
   <groupId>my.zin.rashidi.google</groupId>
   <artifactId>custom-search-client</artifactId>
   <packaging>jar</packaging>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 
   <name>custom-search-client</name>
   <url>http://maven.apache.org</url>
